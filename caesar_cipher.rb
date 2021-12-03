@@ -3,10 +3,12 @@ def caesar_cipher(str, offset)
 end
 
 def shift_letter(l, offset)
-    types = {upper: Array('A'..'Z'),
-             lower: Array('a'..'z'),
-             number: Array('0'..'9')}
-    type = types.filter_map {|t, val| t if val.include? l}[0]
+    types = {
+        upper: ['A', 'Z'],
+        lower: ['a', 'z'],
+        number: ['0', '9']}
+    type = types.filter_map {|t, val| t if l.between? val.first, val.last}[0]
+
     if type != nil && l.ord + offset > types[type].last.ord then
         (types[type].first.ord - 1 + (l.ord + offset - types[type].last.ord)).chr
     elsif type != nil then
