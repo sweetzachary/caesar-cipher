@@ -1,6 +1,8 @@
 class CaesarCipher
+  def initialize; end
+
   def use(str, offset)
-    str.split('').map {|c| shift_letter c, offset}.join('')
+    str.split('').map { |c| shift_letter c, offset }.join('')
   end
 
   private
@@ -23,5 +25,3 @@ class CaesarCipher
   end
 end
 
-caesar_cipher = CaesarCipher.new
-puts caesar_cipher.use(gets, gets.to_i)
