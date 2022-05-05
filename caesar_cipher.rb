@@ -1,21 +1,27 @@
-def caesar_cipher(str, offset)
+class CaesarCipher
+  def use(str, offset)
     str.split('').map {|c| shift_letter c, offset}.join('')
-end
+  end
 
-def shift_letter(l, offset)
+  private
+
+  def shift_letter(l, offset)
     types = {
-        upper: ['A', 'Z'],
-        lower: ['a', 'z'],
-        number: ['0', '9']}
-    type = types.filter_map {|t, val| t if l.between? val.first, val.last}[0]
+      upper: %w[A Z],
+      lower: %w[a z],
+      number: %w[0 9]
+    }
+    type = types.filter_map { |t, val| t if l.between? val.first, val.last }[0]
 
-    if type != nil && l.ord + offset > types[type].last.ord then
-        (types[type].first.ord - 1 + (l.ord + offset - types[type].last.ord)).chr
-    elsif type != nil then
-        (l.ord + offset).chr
+    if !type.nil? && l.ord + offset > types[type].last.ord
+      (types[type].first.ord - 1 + (l.ord + offset - types[type].last.ord)).chr
+    elsif !type.nil?
+      (l.ord + offset).chr
     else
-        l
+      l
     end
+  end
 end
 
-puts caesar_cipher(gets, gets.to_i)
+caesar_cipher = CaesarCipher.new
+puts caesar_cipher.use(gets, gets.to_i)
